@@ -1,0 +1,72 @@
+# Daniel Coleman
+    
+    .globl main
+    .data
+sx: .word 1,2,3
+sy: .word 3,2,1
+ 
+    .text
+    .ent main
+    
+main:
+    
+    li $a0,2     	# Load argument into $a0
+    li $a1,1		# Load argument into $a0
+    li $a2,1		# Load argument into $a0
+    
+    jal g		# main call
+    
+loop:
+    
+    j loop 
+    nop 
+    .end main
+    
+    .ent g
+g: 
+    li $t2,0            
+    li $t5,0            
+    la $t8,sx           # Load address sx into $t8
+    la $t1,sy           # Load address sy into $t1
+    sll $t9,$t2,2       
+    sll $t7,$t5,2       
+    add $t8,$t8,$t9     # Add $t8 and $t9
+    add $t1,$t1,$t6     # Add $t1 and $t6
+    lw $t3,0($t8)       
+    lw $t4,0($t1)       
+    mul $t3,$t3,$a0     # multiply $t8 by $t9
+    add $t4,$t4,$t3     # Add $t4 and $t3
+    sw $t4,0($t1)       
+
+
+    add $t2,$t2,$a1     Add $t2 and $a1
+    add $t5,$t5,$a2     Add $t5 and $a2
+    sll $t9,$t2,2       
+    sll $t6,$t5,2       
+    la $t8,sx           # Load address sx into $t8
+    la $t1,sy           # Load address sy into $t1
+    add $t8,$t8,$t9     # Add $t8 with $t9 
+    add $t1,$t1,$t6     # Add $t1 with $t6 
+    lw $t3,0($t8)       
+    lw $t4,0($t1)       
+    mul $t3,$t3,$a0     # Multiply $t3 by $a0
+    add $t4,$t4,$t3     # Add $t4 and $t3
+    sw $t4,0($t1)       
+
+    add $t2,$t2,$a1     # Add $t2 with $a1
+    add $t5,$t5,$a2     # Add $t5 with $a2
+    sll $t9,$t2,2       
+    sll $t6,$t5,2       
+    la $t8,sx           # Load address sx into $t8
+    la $t1,sy           # Load address sy into $t1
+    add $t8,$t8,$t9     # Add $t8 with $t9
+    add $t1,$t1,$t6     # Add $t1 with $t6
+    lw $t3,0($t8)       
+    lw $t4,0($t1)       
+    mul $t3,$t3,$a0     # Multiply $t3 by $a0
+    add $t4,$t4,$t3     # Add $t4 and $t3
+    sw $t4,0($t1)       
+    jr $ra              # Return 
+    
+    nop
+    .end g
